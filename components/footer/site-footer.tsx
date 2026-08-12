@@ -74,7 +74,7 @@ export function SiteFooter() {
                 className="h-6 w-6"
               />
               <img
-                src="/ndis-icon.svg"
+                src="/ndis.png"
                 alt="Registered NDIS Provider"
                 className="h-6 w-auto"
               />

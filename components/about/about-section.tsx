@@ -21,7 +21,7 @@ export function AboutSection() {
 
             <Reveal y={50} rotate={-1.5} scale={0.94} delay={0.15}>
               <img
-                src="/mockup-about.svg"
+                src="/mockup-about.png"
                 alt="Drive2Ride app showing a ride in progress"
                 className="mt-10 h-auto w-full"
               />
