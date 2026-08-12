@@ -1,26 +1,122 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #05070d;
+  --foreground: #f5f6f8;
+  --muted-foreground: #9aa0ac;
+  --card: #090909f5;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --brand: #1f74f4;
+  --accent: #f52d56;
+  --nav-bg: rgba(255, 255, 255, 0.102);
+  --nav-border: rgba(255, 255, 255, 0.29);
+  --button-glass: rgba(255, 255, 255, 0.188);
+  --route-outer: #121212;
+  --route-track: #111111;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-border-subtle: var(--border-subtle);
+  --color-brand: var(--brand);
+  --color-accent: var(--accent);
+  --color-nav-bg: var(--nav-bg);
+  --color-nav-border: var(--nav-border);
+  --color-button-glass: var(--button-glass);
+  --color-route-outer: var(--route-outer);
+  --color-route-track: var(--route-track);
+  --font-sans: var(--font-raleway);
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .services-grid {
+    grid-template-columns: 1fr 1.15fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "card1 mockup card3" "card2 mockup card4";
+    column-gap: 1rem;
+    row-gap: 1rem;
+  }
+}
+
+.walkthrough-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .walkthrough-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: "d1 d2 d3" "d4 d5 d6";
+    gap: 1.5rem;
+  }
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
 }
