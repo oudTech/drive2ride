@@ -4,7 +4,6 @@ import { SiteFooter } from "@/components/footer/site-footer";
 import { LegalPageHeader } from "@/components/legal/legal-page-header";
 import { LegalContent } from "@/components/legal/legal-blocks";
 import { TERMS_BLOCKS } from "@/components/legal/terms-content";
-import { Reveal } from "@/components/reveal";
 import { CONTAINER } from "@/lib/container";
 import { cn } from "@/lib/utils";
 
@@ -23,9 +22,9 @@ export default function TermsAndConditionsPage() {
         <LegalPageHeader title="Terms & Condition" />
         <section className="pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24">
           <div className={cn(CONTAINER)}>
-            <Reveal y={20} className="mx-auto max-w-3xl">
+            <div className="mx-auto max-w-3xl">
               <LegalContent blocks={TERMS_BLOCKS} />
-            </Reveal>
+            </div>
           </div>
         </section>
       </main>
