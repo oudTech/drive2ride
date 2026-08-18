@@ -30,14 +30,14 @@ export function RoutePlannerSection() {
             <img
               src="/standalone1.png"
               alt="Drive2Ride Track Your Ride screen"
-              className="h-[85%] w-auto object-contain"
+              className="h-[95%] w-auto object-contain"
             />
           </div>
           <div className="flex w-full items-end justify-center overflow-hidden rounded-[20px] bg-[#FCFCFD] px-8 pt-8 sm:w-96 lg:h-57.75">
             <img
               src="/standalone2.png"
               alt="Drive2Ride real time transcription screen"
-              className="h-[85%] w-auto object-contain"
+              className="h-[95%] w-auto object-contain"
             />
           </div>
         </div>
@@ -56,7 +56,7 @@ export function RoutePlannerSection() {
           <img
             src="/accessibility-mockup.png"
             alt="Drive2Ride accessibility and safety features screen"
-            className="-mt-8 w-full self-start sm:w-auto sm:max-w-44 sm:shrink-0"
+            className="-mt-8 w-[264px] self-start sm:w-auto sm:max-w-52 sm:shrink-0"
           />
         </div>
       </Reveal>

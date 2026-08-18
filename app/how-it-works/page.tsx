@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/footer/site-footer";
 import { HowItWorksPageHero } from "@/components/how-it-works-page/how-it-works-page-hero";
 import { FeatureRow } from "@/components/how-it-works-page/feature-row";
 import { RoutePlannerSection } from "@/components/how-it-works-page/route-planner-section";
-import { CONTAINER } from "@/lib/container";
+import { CONTAINER_PADDING } from "@/lib/container";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export default function HowItWorksPage() {
       <main className="flex-1">
         <HowItWorksPageHero />
         <section className="bg-white py-16 sm:py-20 lg:py-24">
-          <div className={cn(CONTAINER)}>
+          <div className={`mx-auto w-full sm:max-w-350 ${CONTAINER_PADDING}`}>
             <div className="flex flex-col gap-16 lg:gap-24">
               <FeatureRow
                 imageSrc="/emergency-mockup.png"

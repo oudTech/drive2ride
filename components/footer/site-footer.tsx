@@ -28,9 +28,21 @@ const FOOTER_COLUMNS = [
 ];
 
 const SOCIAL_LINKS = [
-  { label: "Facebook", href: "#", icon: FacebookIcon },
-  { label: "Instagram", href: "#", icon: InstagramIcon },
-  { label: "LinkedIn", href: "#", icon: LinkedinIcon },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/drive2ride",
+    icon: FacebookIcon,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/drive2ride.com.au/",
+    icon: InstagramIcon,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/drive2ride-pty-ltd/",
+    icon: LinkedinIcon,
+  },
 ];
 
 export function SiteFooter() {
@@ -43,7 +55,7 @@ export function SiteFooter() {
           Acknowledgement of Country
         </h2>
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-white/60 sm:text-base">
-          We acknowledge the gunnawal people as traditional custodians of the
+          We acknowledge the ngunnawal people as traditional custodians of the
           ACT and recognise any other people or families with connection to the
           lands of the ACT and region. We acknowledge and respect their
           continuing culture and the contribution they make to the life of this
@@ -59,24 +71,34 @@ export function SiteFooter() {
               <p>OFFICE: UNIT 3, 46 COLBEE COURT, PHILLIP ACT 2606</p>
             </div>
             <div className="mt-5 flex items-center gap-2">
-              <FooterBadgeOne />
-              <FooterBadgeTwo />
+              <img
+                src="/flag_one.svg"
+                alt=""
+                aria-hidden="true"
+                className="h-10 w-10"
+              />
+              <img
+                src="/au_flag.svg"
+                alt=""
+                aria-hidden="true"
+                className="h-10 w-10"
+              />
               <img
                 src="/lgbtq-icon.svg"
                 alt=""
                 aria-hidden="true"
-                className="h-6 w-6"
+                className="h-10 w-10"
               />
               <img
                 src="/aus-icon.svg"
                 alt=""
                 aria-hidden="true"
-                className="h-6 w-6"
+                className="h-10 w-10"
               />
               <img
                 src="/ndis.png"
                 alt="Registered NDIS Provider"
-                className="h-6 w-auto"
+                className="h-10 w-auto"
               />
             </div>
             <div className="mt-5 flex items-center gap-3">
@@ -128,7 +150,7 @@ export function SiteFooter() {
           )}
         >
           <p>© {year} Drive2Ride. All rights reserved.</p>
-          <p>
+          {/* <p>
             Designed by{" "}
             <a
               href="https://oudtechnologies.com"
@@ -138,7 +160,7 @@ export function SiteFooter() {
             >
               OudTech
             </a>
-          </p>
+          </p> */}
         </div>
       </div>
     </footer>

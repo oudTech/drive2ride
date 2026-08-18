@@ -58,8 +58,8 @@ export function HowItWorksSection() {
             How it works
           </h2>
           <p className="mt-4 max-w-xl text-neutral-600 leading-relaxed">
-            No confusing steps, no guesswork, just a ride that looks out for
-            you from start to finish.
+            No confusing steps, no guesswork, just a ride that looks out for you
+            from start to finish.
           </p>
         </Reveal>
 
@@ -77,7 +77,7 @@ export function HowItWorksSection() {
             sizes="(min-width: 1024px) 1240px, 100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-black/45" />
+          <div className="absolute inset-0 bg-black/80" />
 
           <div className="walkthrough-grid relative p-4 sm:p-8 lg:p-10">
             {CARDS.map((card) => (

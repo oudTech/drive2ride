@@ -27,7 +27,7 @@ export function FeatureRow({
         <img
           src={imageSrc}
           alt={imageAlt}
-          className="h-full w-auto object-contain"
+          className="w-[350px] h-[270px] h-auto sm:w-[400px] sm:object-contain"
         />
       </Reveal>
 

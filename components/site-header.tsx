@@ -56,7 +56,7 @@ export function SiteHeader() {
         )}
       >
         <a href="/" className="shrink-0">
-          <Logo className="h-8 text-white sm:h-9" />
+          <Logo className="h-10 text-white sm:h-11" />
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex">
@@ -74,11 +74,30 @@ export function SiteHeader() {
         <a
           href="/contact"
           className={cn(
-            "hidden shrink-0 rounded-full px-5 py-2 text-sm font-medium text-foreground transition-colors duration-300 lg:inline-block",
-            pastHero ? "bg-white/15 hover:bg-white/25" : "bg-[#FFFFFF30] hover:bg-white/25",
+            "hidden shrink-0 rounded-full items-center gap-2 px-5 py-2 text-sm font-medium text-foreground transition-colors duration-300 lg:inline-flex",
+            pastHero
+              ? "bg-white/15 hover:bg-white/25"
+              : "bg-[#FFFFFF30] hover:bg-white/25",
           )}
         >
-          Let&apos;s Talk
+          LET&apos;S TALK
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#064ADF]">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M2.5 11.5L11.5 2.5M11.5 2.5H5M11.5 2.5V9"
+                stroke="white"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
         </a>
 
         <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -88,7 +107,9 @@ export function SiteHeader() {
               aria-label="Open menu"
               className={cn(
                 "flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors duration-300 lg:hidden",
-                pastHero ? "bg-white/15 hover:bg-white/25" : "bg-[#FFFFFF30] hover:bg-white/25",
+                pastHero
+                  ? "bg-white/15 hover:bg-white/25"
+                  : "bg-[#FFFFFF30] hover:bg-white/25",
               )}
             >
               <Menu className="h-5 w-5 text-foreground" />
@@ -98,19 +119,19 @@ export function SiteHeader() {
             <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm data-[state=open]:animate-[overlay-in_200ms_ease-out]" />
             <Dialog.Content
               className={cn(
-                "fixed inset-x-4 top-4 z-50 rounded-3xl bg-white p-6 text-black shadow-2xl",
+                "fixed inset-x-4 top-4 z-50 rounded-3xl bg-neutral-900/90 backdrop-blur-2xl p-6 text-white shadow-2xl",
                 "data-[state=open]:animate-[panel-in_250ms_ease-out]",
               )}
             >
               <div className="mb-6 flex items-center justify-between">
                 <Dialog.Title asChild>
-                  <Logo className="h-8 text-black" />
+                  <Logo className="h-8 text-white" />
                 </Dialog.Title>
                 <Dialog.Close asChild>
                   <button
                     type="button"
                     aria-label="Close menu"
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-black"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-white/20 text-white"
                   >
                     <X className="h-4 w-4" />
                   </button>
@@ -122,19 +143,38 @@ export function SiteHeader() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="rounded-xl px-3 py-3 text-base text-black/80 transition-colors hover:bg-black/5 hover:text-black"
+                    className="rounded-xl px-3 py-3 text-base text-white/80 transition-colors hover:bg-white/5 hover:text-white"
                   >
                     {link.label}
                   </a>
                 ))}
               </nav>
-              <a
-                href="/contact"
-                onClick={() => setOpen(false)}
-                className="mt-4 block rounded-full bg-black px-5 py-3 text-center text-sm font-medium text-white"
-              >
-                Contact Us
-              </a>
+              <div className="border-t mt-6 border-white/10">
+                <a
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex w-fit items-center gap-2 rounded-full bg-[#FFFFFF1A] mt-6 py-1.5 pl-5 pr-1.5 text-sm font-medium text-white transition-colors hover:bg-neutral-200"
+                >
+                  LET&apos;S TALK
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#064ADF]">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M2.5 11.5L11.5 2.5M11.5 2.5H5M11.5 2.5V9"
+                        stroke="white"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </a>
+              </div>
             </Dialog.Content>
           </Dialog.Portal>
         </Dialog.Root>
