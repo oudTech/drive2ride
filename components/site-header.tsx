@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Menu, X } from "lucide-react";
+import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CONTAINER } from "@/lib/container";
 import { Logo } from "@/components/logo";
@@ -45,7 +45,7 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header className={cn(CONTAINER, "fixed inset-x-0 top-4 z-50")}>
+    <header className={cn(CONTAINER, "fixed inset-x-0 top-4 z-[60]")}>
       <div
         ref={pillRef}
         className={cn(
@@ -104,7 +104,7 @@ export function SiteHeader() {
           <Dialog.Trigger asChild>
             <button
               type="button"
-              aria-label="Open menu"
+              aria-label={open ? "Close menu" : "Open menu"}
               className={cn(
                 "flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors duration-300 lg:hidden",
                 pastHero
@@ -112,7 +112,26 @@ export function SiteHeader() {
                   : "bg-[#FFFFFF30] hover:bg-white/25",
               )}
             >
-              <Menu className="h-5 w-5 text-foreground" />
+              <span className="relative flex h-5 w-5 items-center justify-center">
+                <span
+                  className={cn(
+                    "absolute h-[1.5px] w-5 rounded-full bg-foreground transition-transform duration-300 ease-in-out",
+                    open ? "translate-y-0 rotate-45" : "-translate-y-[6px] rotate-0",
+                  )}
+                />
+                <span
+                  className={cn(
+                    "absolute h-[1.5px] w-5 rounded-full bg-foreground transition-opacity duration-200 ease-in-out",
+                    open ? "opacity-0" : "opacity-100",
+                  )}
+                />
+                <span
+                  className={cn(
+                    "absolute h-[1.5px] w-5 rounded-full bg-foreground transition-transform duration-300 ease-in-out",
+                    open ? "translate-y-0 -rotate-45" : "translate-y-[6px] rotate-0",
+                  )}
+                />
+              </span>
             </button>
           </Dialog.Trigger>
           <Dialog.Portal>

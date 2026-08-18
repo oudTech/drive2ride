@@ -55,7 +55,7 @@ export function SiteFooter() {
           Acknowledgement of Country
         </h2>
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-white/60 sm:text-base">
-          We acknowledge the ngunnawal people as traditional custodians of the
+          We acknowledge the Ngunnawal people as traditional custodians of the
           ACT and recognise any other people or families with connection to the
           lands of the ACT and region. We acknowledge and respect their
           continuing culture and the contribution they make to the life of this

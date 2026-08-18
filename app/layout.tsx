@@ -3,6 +3,7 @@ import { Raleway } from "next/font/google";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { StructuredData } from "@/components/structured-data";
 import "./globals.css";
+import Script from "next/script";
 
 const raleway = Raleway({
   variable: "--font-raleway",
@@ -53,6 +54,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${raleway.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col text-foreground font-sans">
         <StructuredData />
+        <Script
+          id="smartsupp-config"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `var _smartsupp = _smartsupp || {}; _smartsupp.key = '8ffb10ea367aa7a023e3f926ec7fba0bfb852d28';`,
+          }}
+        />
+        <Script
+          src="https://www.smartsuppchat.com/loader.js"
+          strategy="afterInteractive"
+        />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
