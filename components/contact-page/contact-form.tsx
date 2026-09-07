@@ -91,7 +91,7 @@ export function ContactForm() {
     <div className="rounded-[20px] bg-white p-8 shadow-xl sm:p-10">
       {TURNSTILE_SITE_KEY ? (
         <Script
-          src="https://challenge.cloudflare.com/turnstile/v0/api.js"
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
           strategy="afterInteractive"
           onReady={() => setTurnstileReady(true)}
         />
