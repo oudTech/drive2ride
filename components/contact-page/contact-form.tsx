@@ -1,7 +1,10 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import Script from "next/script";
 import { cn } from "@/lib/utils";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 const AUDIENCE_OPTIONS = [
   "An NDIS Participant",
@@ -28,6 +31,23 @@ type Status = "idle" | "submitting" | "success" | "error";
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileReady, setTurnstileReady] = useState(false);
+  const [renderedAt] = useState(() => Date.now());
+  const turnstileContainerRef = useRef<HTMLDivElement>(null);
+  const turnstileWidgetId = useRef<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (!turnstileReady || !TURNSTILE_SITE_KEY || !turnstileContainerRef.current) return;
+    if (turnstileWidgetId.current) return;
+
+    turnstileWidgetId.current = window.turnstile?.render(turnstileContainerRef.current, {
+      sitekey: TURNSTILE_SITE_KEY,
+      callback: (token) => setTurnstileToken(token),
+      "expired-callback": () => setTurnstileToken(""),
+      "error-callback": () => setTurnstileToken(""),
+    });
+  }, [turnstileReady]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -57,16 +77,43 @@ export function ContactForm() {
       setErrorMessage(
         error instanceof Error ? error.message : "Something went wrong. Please try again.",
       );
+    } finally {
+      // Turnstile tokens are single-use — reset so the widget issues a
+      // fresh one for the next attempt.
+      setTurnstileToken("");
+      if (turnstileWidgetId.current) {
+        window.turnstile?.reset(turnstileWidgetId.current);
+      }
     }
   }
 
   return (
     <div className="rounded-[20px] bg-white p-8 shadow-xl sm:p-10">
+      {TURNSTILE_SITE_KEY ? (
+        <Script
+          src="https://challenge.cloudflare.com/turnstile/v0/api.js"
+          strategy="afterInteractive"
+          onReady={() => setTurnstileReady(true)}
+        />
+      ) : null}
+
       <h2 className="text-2xl font-bold text-neutral-900 sm:text-3xl">
         Contact Us
       </h2>
 
       <form className="mt-6 flex flex-col gap-5" onSubmit={handleSubmit}>
+        {/* Honeypot: hidden from real visitors, bots fill every field. */}
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="absolute left-[-9999px] h-0 w-0 opacity-0"
+        />
+        <input type="hidden" name="formRenderedAt" value={renderedAt} readOnly />
+        <input type="hidden" name="turnstileToken" value={turnstileToken} readOnly />
+
         <div>
           <label
             htmlFor="fullName"
@@ -175,13 +222,17 @@ export function ContactForm() {
           />
         </div>
 
+        {TURNSTILE_SITE_KEY ? <div ref={turnstileContainerRef} /> : null}
+
         {status === "error" ? (
           <p className="text-sm font-medium text-red-600">{errorMessage}</p>
         ) : null}
 
         <button
           type="submit"
-          disabled={status === "submitting"}
+          disabled={
+            status === "submitting" || (Boolean(TURNSTILE_SITE_KEY) && !turnstileToken)
+          }
           className="mt-2 w-full rounded-full bg-brand py-3.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {status === "submitting"
