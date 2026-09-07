@@ -58,7 +58,7 @@ export function ContactInfoSection() {
                 className="object-cover"
               />
               <div className="relative">
-                <ContactForm />
+                <ContactForm turnstileSiteKey={process.env.TURNSTILE_SITE_KEY} />
               </div>
             </div>
           </Reveal>

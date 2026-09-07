@@ -4,8 +4,6 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import Script from "next/script";
 import { cn } from "@/lib/utils";
 
-const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-
 const AUDIENCE_OPTIONS = [
   "An NDIS Participant",
   "A Family Member or Carer",
@@ -28,7 +26,18 @@ const inputClasses =
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export function ContactForm() {
+interface ContactFormProps {
+  /**
+   * Cloudflare Turnstile site key. Not a secret — Turnstile requires it to
+   * be embedded in the page so the visitor's browser can load the widget —
+   * but we still read it server-side (plain `TURNSTILE_SITE_KEY`, no
+   * `NEXT_PUBLIC_` prefix) and pass it down as a prop rather than relying on
+   * Next.js's build-time env inlining.
+   */
+  turnstileSiteKey?: string;
+}
+
+export function ContactForm({ turnstileSiteKey }: ContactFormProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -38,16 +47,16 @@ export function ContactForm() {
   const turnstileWidgetId = useRef<string | undefined>(undefined);
 
   useEffect(() => {
-    if (!turnstileReady || !TURNSTILE_SITE_KEY || !turnstileContainerRef.current) return;
+    if (!turnstileReady || !turnstileSiteKey || !turnstileContainerRef.current) return;
     if (turnstileWidgetId.current) return;
 
     turnstileWidgetId.current = window.turnstile?.render(turnstileContainerRef.current, {
-      sitekey: TURNSTILE_SITE_KEY,
+      sitekey: turnstileSiteKey,
       callback: (token) => setTurnstileToken(token),
       "expired-callback": () => setTurnstileToken(""),
       "error-callback": () => setTurnstileToken(""),
     });
-  }, [turnstileReady]);
+  }, [turnstileReady, turnstileSiteKey]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -89,7 +98,7 @@ export function ContactForm() {
 
   return (
     <div className="rounded-[20px] bg-white p-8 shadow-xl sm:p-10">
-      {TURNSTILE_SITE_KEY ? (
+      {turnstileSiteKey ? (
         <Script
           src="https://challenges.cloudflare.com/turnstile/v0/api.js"
           strategy="afterInteractive"
@@ -222,7 +231,7 @@ export function ContactForm() {
           />
         </div>
 
-        {TURNSTILE_SITE_KEY ? <div ref={turnstileContainerRef} /> : null}
+        {turnstileSiteKey ? <div ref={turnstileContainerRef} /> : null}
 
         {status === "error" ? (
           <p className="text-sm font-medium text-red-600">{errorMessage}</p>
@@ -231,7 +240,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={
-            status === "submitting" || (Boolean(TURNSTILE_SITE_KEY) && !turnstileToken)
+            status === "submitting" || (Boolean(turnstileSiteKey) && !turnstileToken)
           }
           className="mt-2 w-full rounded-full bg-brand py-3.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
         >
